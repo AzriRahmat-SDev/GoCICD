@@ -25,3 +25,8 @@ jobs: #jobs to exe
       
     - name: Checking File sys
       run: ls
+    
+    - name: Installing dependencies
+      run: | 
+        go get https://github.com/franela/goblin.git
+        go test -v
