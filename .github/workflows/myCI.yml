@@ -34,6 +34,8 @@ jobs: #jobs to exe
     - name: Checking File sys
       run: |
         cd remote
+        ls
+        
     
     - name: Installing dependencies
       run: | 
@@ -49,8 +51,9 @@ jobs: #jobs to exe
       if: always()
       with:
         files: tests.xml
+        
     - if: ${{ failure() }}
-    - uses: nashmaniac/create-issue-action@v1.1
+      uses: nashmaniac/create-issue-action@v1.1
       name: Create Issue Action
       with:
         title: Build Failed
