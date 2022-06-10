@@ -27,16 +27,39 @@ jobs: #jobs to exe
       uses: actions/checkout@v2.4.2
       with: 
         repositiry: lowkh2/GoSchoolRemoteExample
-        token: ${{ secrets.Go_SECRETS }}
+        token: ${{ secrets.GOSECRETS }}
         path: remote
     - name: Post Checkout Remote Private Repo
       run: ls
     - name: Checking File sys
-      run: ls
+      run: |
+        cd remote
     
     - name: Installing dependencies
       run: | 
         go mod init calc #for go mod. if we use go build, it will do the same for the new 3 lines
         go mod tidy
         go get github.com/franela/goblin
+        go get github.com/tebeka/go2xunit
         go test -v
+        go test -v | go2xunit -output tests.xml
+        
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v1
+      if: always()
+      with:
+        files: tests.xml
+    - if: ${{ failure() }}
+    - uses: nashmaniac/create-issue-action@v1.1
+      name: Create Issue Action
+      with:
+        title: Build Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: worflow-failed
+        body: Workflow failed for commit ${{github.sha}}
+        
+        
+        
+        
+        
