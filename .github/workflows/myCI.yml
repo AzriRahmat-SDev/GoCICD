@@ -1,7 +1,7 @@
 name: CI for Go Code #Naming the workflows
 on: #for event triggering
   push:
-    branches: [main]
+    branches: [main] #add more branch with a comma
   pull_request:
     branches: [main]
     
