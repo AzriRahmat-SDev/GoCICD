@@ -23,6 +23,14 @@ jobs: #jobs to exe
     - name: Checkout repo
       uses: actions/checkout@v2.4.2 #pulls code from repo and puts into virtual machine
       
+    - name: Checkout Remote Private Repo
+      uses: actions/checkout@v2.4.2
+      with: 
+        repositiry: lowkh2/GoSchoolRemoteExample
+        token: ${{ secrets.Go_SECRETS }}
+        path: remote
+    - name: Post Checkout Remote Private Repo
+      run: ls
     - name: Checking File sys
       run: ls
     
