@@ -28,7 +28,7 @@ jobs: #jobs to exe
     
     - name: Installing dependencies
       run: | 
-        go mod init calc
+        go mod init calc #for go mod. if we use go build, it will do the same
         go mod tidy
-        go get https://github.com/franela/goblin.git
+        go get github.com/franela/goblin
         go test -v
