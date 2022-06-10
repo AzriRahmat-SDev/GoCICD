@@ -28,5 +28,7 @@ jobs: #jobs to exe
     
     - name: Installing dependencies
       run: | 
+        go mod init calc
+        go mod tidy
         go get https://github.com/franela/goblin.git
         go test -v
